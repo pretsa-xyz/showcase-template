@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+    <div class="layout-topbar">
+        <a class="menu-button" tabindex="0">
+            <i class="pi pi-bars"></i>
+        </a>
+        <h:link styleClass="logo" outcome="/index.xhtml">
+            <ui:insert name="logo"><p:graphicImage name="images/primefaces-logo.svg" library="showcase" /></ui:insert>
+        </h:link>
+
+        <h:form styleClass="topbar-form">
+            <ui:insert name="top-menu">
+                <ul class="topbar-menu">
+                    <li>
+                        <h:link outcome="/index">Home</h:link>
+                    </li>
+                    <li class="topbar-submenu">
+                        <a tabindex="0">Themes</a>
+                        <ul class="connected-overlay-in">
+                            <li class="topbar-submenu-header">PRIMEONE Themes</li>
+                            <li><p:commandLink actionListener="#{app.changeTheme('saga', false)}" oncomplete="App.changeTheme('saga', false)" update="@(.ui-panel)"><h:graphicImage name="showcase/images/themes/saga.png" alt="Saga"/><span>Saga</span></p:commandLink></li>
+                            <li><p:commandLink actionListener="#{app.changeTheme('vela', true)}" oncomplete="App.changeTheme('vela', true)" update="@(.ui-panel)"><h:graphicImage name="showcase/images/themes/vela.png" alt="Vela"/><span>Vela</span></p:commandLink></li>
+                            <li><p:commandLink actionListener="#{app.changeTheme('arya', true)}" oncomplete="App.changeTheme('arya', true)" update="@(.ui-panel)"><h:graphicImage name="showcase/images/themes/arya.png" alt="Arya"/><span>Arya</span></p:commandLink></li>
+                        </ul>
+                    </li>
+                </ul>
+            </ui:insert>
+        </h:form>
+    </div>
+</ui:composition>
