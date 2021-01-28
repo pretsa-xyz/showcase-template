@@ -33,7 +33,7 @@ import javax.inject.Named;
 @ApplicationScoped
 public class AppMenu {
 
-    List<MenuCategory> menuCategories;
+    protected List<MenuCategory> menuCategories;
 
     @PostConstruct
     public void init() {

@@ -15,9 +15,9 @@
  */
 package org.primefaces.showcase.view.app;
 
-import javax.inject.Named;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 @Named
 @SessionScoped
