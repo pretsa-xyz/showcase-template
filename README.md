@@ -8,7 +8,7 @@ JSF template based on the awesome [PrimeFaces Showcase](https://github.com/prime
  - Responsive layout based on [PrimeFlex](https://github.com/primefaces/primeflex)
  - Theme switcher
 
-# Usage
+# Getting started
 
 #### 1. First include it in your classpath:
 ```
@@ -119,9 +119,6 @@ public class MyAppMenu extends AppMenu {
 
     }
 
-    public List<MenuCategory> getMenuCategories() {
-        return menuCategories;
-    }
 }
 ```
 #### 5. Accessing selected theme (optional)
@@ -212,9 +209,6 @@ public class MyAppMenu extends AppMenu {
 
     }
 
-    public List<MenuCategory> getMenuCategories() {
-        return menuCategories;
-    }
 }
 ```
    - Sample value
