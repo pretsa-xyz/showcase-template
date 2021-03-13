@@ -23,7 +23,7 @@ JSF template based on the awesome [PrimeFaces Showcase](https://github.com/prime
 <dependency>
     <groupId>xyz.pretsa</groupId>
     <artifactId>showcase-template</artifactId>
-    <version>10.0.0-SNAPSHOT</version>
+    <version>10.0.0</version>
 </dependency>
 ```
 It will bring the following transitive dependencies:
