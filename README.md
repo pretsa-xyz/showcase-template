@@ -10,7 +10,15 @@ JSF template based on the awesome [PrimeFaces Showcase](https://github.com/prime
 
 # Getting started
 
-#### 1. First include it in your classpath:
+#### 1. First include it in your classpath, it's not available on Maven Central yet so add JitPack repository first:
+```
+<repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
+```
 ```
 <dependency>
     <groupId>xyz.pretsa</groupId>
