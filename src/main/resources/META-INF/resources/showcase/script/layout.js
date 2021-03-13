@@ -1,5 +1,5 @@
 App = {
-    init: function() {
+    init: function () {
         this.wrapper = $(document.body).children('.layout-wrapper');
         this.topbar = this.wrapper.children('.layout-topbar');
         this.topbarMenu = this.topbar.find('> form > .topbar-menu');
@@ -11,16 +11,17 @@ App = {
         this.configurator = this.wrapper.children('.layout-config');
         this.configuratorButton = $('#layout-config-button');
         this.configuratorCloseButton = $('#layout-config-close-button');
+        this.filterPanel = $('.layout-sidebar-filter-panel');
         this.activeSubmenus = [];
-        
+
         this._bindEvents();
         this.restoreMenu();
     },
 
-    _bindEvents: function() {
+    _bindEvents: function () {
         var $this = this;
 
-        this.topbarMenu.find('> .topbar-submenu > a').off('click').on('click', function() {
+        this.topbarMenu.find('> .topbar-submenu > a').off('click').on('click', function () {
             var item = $(this).parent();
 
             item.siblings('.topbar-submenu-active').removeClass('topbar-submenu-active');
@@ -31,37 +32,35 @@ App = {
                 $this.showTopbarSubmenu(item);
         });
 
-        this.topbarMenu.find('.connected-overlay-in a').off('click').on('click', function() {
+        this.topbarMenu.find('.connected-overlay-in a').off('click').on('click', function () {
             $this.hideTopbarSubmenu($this.topbarMenu.children('.topbar-submenu-active'));
         });
 
-        this.menuLinks.off('click').on('click', function() {
+        this.menuLinks.off('click').on('click', function () {
             var link = $(this);
-            
+
             if (link.hasClass('submenu-link')) {
                 if (link.hasClass('submenu-link-active')) {
                     $this.activeSubmenus = $.grep($this.activeSubmenus, function (val) {
                         return val !== link.attr('id');
                     });
                     link.removeClass('submenu-link-active').next('.submenu').slideUp('fast');
-                }
-                else {
+                } else {
                     $this.activeSubmenus.push(link.attr('id'));
                     link.addClass('submenu-link-active').next('.submenu').slideDown('fast');
                 }
 
                 sessionStorage.setItem('active_submenus', $this.activeSubmenus.join(','));
-            }
-            else {
+            } else {
                 link.addClass('router-link-active');
-            }   
+            }
         });
 
-        this.sidebar.off('scroll').on('scroll', function(event) {
-            sessionStorage.setItem('scroll_position', $this.sidebar.scrollTop());
+        this.menu.off('scroll').on('scroll', function () {
+            sessionStorage.setItem('scroll_position', $this.menu.scrollTop());
         });
 
-        $(document).off('click.showcase').on('click.showcase', function(event) {
+        $(document).off('click.showcase').on('click.showcase', function (event) {
             if (!$.contains($this.topbarMenu.get(0), event.target)) {
                 $this.hideTopbarSubmenu($this.topbarMenu.children('.topbar-submenu-active'));
             }
@@ -76,42 +75,63 @@ App = {
             }
         });
 
-        this.menuButton.off('click').on('click', function() {
+        this.menuButton.off('click').on('click', function () {
             $this.sidebar.addClass('active');
             $this.mask.addClass('layout-mask-active');
         });
 
-        this.configuratorButton.off('click').on('click', function() {
+        this.configuratorButton.off('click').on('click', function () {
             $this.configurator.toggleClass('layout-config-active');
         });
 
-        this.configuratorCloseButton.off('click').on('click', function() {
+        this.configuratorCloseButton.off('click').on('click', function () {
             $this.configurator.removeClass('layout-config-active');
         });
+
+        this.filterPanel.off('click.showcase', '.ui-autocomplete-item')
+                .on('click.showcase', '.ui-autocomplete-item', function (e) {
+                    if (!$this.isLinkClicked) {
+                        $this.isLinkClicked = true;
+
+                        var link = $(this).find('a:first');
+                        if (link) {
+                            var url = new URL(link[0].href);
+                            var menuItem = $this.menu.find('a[href*="' + url.pathname + '"');
+                            if (menuItem.length) {
+                                var scroll_position = menuItem[0].offsetTop - $this.menu[0].offsetTop;
+                                ;
+                                sessionStorage.setItem('scroll_position', scroll_position);
+                            }
+
+                            link.trigger('click');
+
+                            var href = link.attr('href');
+                            if (href && href !== '#') {
+                                window.location.href = href;
+                            }
+                        }
+                    }
+                    $this.isLinkClicked = false;
+                    e.preventDefault();
+                });
     },
 
-    hideTopbarSubmenu(item) {
+    hideTopbarSubmenu: function (item) {
         var submenu = item.children('ul');
         submenu.addClass('connected-overlay-out');
 
         setTimeout(function () {
             item.removeClass('topbar-submenu-active'),
-            submenu.removeClass('connected-overlay-out');
+                    submenu.removeClass('connected-overlay-out');
         }, 100);
     },
 
-    showTopbarSubmenu(item) {
+    showTopbarSubmenu: function (item) {
         item.addClass('topbar-submenu-active');
     },
 
-    changeTheme: function(theme, dark) {
-        var library = 'primefaces-';
-        var linkElement = $('link[href*="theme.css"]');
-        var href = linkElement.attr('href');
-        var index = href.indexOf(library);
-        var currentTheme = href.substring(index + library.length);
-
-        this.replaceLink(linkElement, href.replace(currentTheme, theme));
+    changeTheme: function (theme, dark) {
+        PrimeFaces.changeTheme(theme);
 
         if (dark)
             $('#homepage-intro').addClass('introduction-dark');
@@ -119,29 +139,18 @@ App = {
             $('#homepage-intro').removeClass('introduction-dark');
     },
 
-    replaceLink: function(linkElement, href) {
-        var cloneLinkElement = linkElement.clone(false);
-        
-        cloneLinkElement.attr('href', href);
-        linkElement.after(cloneLinkElement);
-        
-        cloneLinkElement.off('load').on('load', function() {
-            linkElement.remove();
-        });
-    },
-
-    updateInputStyle: function(value) {
+    updateInputStyle: function (value) {
         if (value === 'filled')
             this.wrapper.addClass('ui-input-filled');
         else
             this.wrapper.removeClass('ui-input-filled');
     },
 
-    isMenuButton(element) {
+    isMenuButton: function (element) {
         return $.contains(this.menuButton.get(0), element) || this.menuButton.is(element);
     },
 
-    restoreMenu() {
+    restoreMenu: function () {
         var activeRouteLink = this.menuLinks.filter('[href^="' + window.location.pathname + '"]');
         if (activeRouteLink.length) {
             activeRouteLink.addClass('router-link-active');
@@ -150,14 +159,22 @@ App = {
         var activeSubmenus = sessionStorage.getItem('active_submenus');
         if (activeSubmenus) {
             this.activeSubmenus = activeSubmenus.split(',');
-            this.activeSubmenus.forEach(function(id) {
+            this.activeSubmenus.forEach(function (id) {
                 $('#' + id).addClass('submenu-link-active').next().show();
             });
         }
 
         var scrollPosition = sessionStorage.getItem('scroll_position');
         if (scrollPosition) {
-            this.sidebar.scrollTop(parseInt(scrollPosition));
+            this.menu.scrollTop(parseInt(scrollPosition));
+        }
+    },
+
+    onSearchClick: function (event, id) {
+        if (id && this.activeSubmenus.indexOf(id) === -1) {
+            this.activeSubmenus.push(id);
+            $('#' + id).next().show();
+            sessionStorage.setItem('active_submenus', this.activeSubmenus.join(','));
         }
     }
 }

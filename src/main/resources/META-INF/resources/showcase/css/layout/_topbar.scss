@@ -55,7 +55,7 @@
         width: 39px;
         height: 39px;
         margin-left: 70px;
-    
+
         img {
             width: 25px;
         }
@@ -104,6 +104,10 @@
             &.topbar-submenu {
                 position: relative;
 
+                .ui-overlay-badge {
+                    display: inline;
+                }
+
                 &.topbar-submenu-active {
                     > ul {
                         display: block;
@@ -138,7 +142,7 @@
                             padding: 1.5rem 0 1rem 0;
                             font-size: 0.857rem;
                             text-transform: uppercase;
-                
+
                             &:first-child {
                                 padding-top: 1rem;
                             }

@@ -49,12 +49,12 @@
         background: #C8E6C9;
         color: #256029;
     }
-    
+
     &.status-outofstock {
         background: #FFCDD2;
         color: #C63737;
     }
-    
+
     &.status-lowstock {
         background: #FEEDAF;
         color: #8A5340;
@@ -73,17 +73,17 @@
         background: #C8E6C9;
         color: #256029;
     }
-    
+
     &.order-cancelled {
         background: #FFCDD2;
         color: #C63737;
     }
-    
+
     &.order-pending {
         background: #FEEDAF;
         color: #8A5340;
     }
-    
+
     &.order-returned {
         background: #ECCFFF;
         color: #694382;
@@ -288,12 +288,6 @@
 .crud-demo {
     .ui-datatable {
         margin-top: 1rem;
-    }
-
-    .products-buttonbar {
-        @include flex();
-        @include flex-align-start();
-        @include flex-justify-between();
     }
 
     .product-image {

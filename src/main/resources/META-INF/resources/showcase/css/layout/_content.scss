@@ -51,7 +51,7 @@
                 padding-top: 0;
             }
 
-            input[type="hidden"]  + h5 { 
+            input[type="hidden"]  + h5 {
                 margin-top:0;
             }
         }
@@ -79,7 +79,6 @@
                 font-family: Monaco, courier, monospace;
                 font-style: normal;
                 font-size: 12px;
-                font-weight: 500;
                 padding: 2px 4px;
                 letter-spacing: .5px;
                 border-radius: 3px;
@@ -90,23 +89,47 @@
             .ui-tabs {
                 background: transparent;
                 border: 0 none;
-    
+
                 .ui-tabs-nav {
-                    border-bottom: 1px solid var(--surface-d);
                     background-color: transparent;
-    
+
+                    &:before {
+                        border-bottom: 1px solid var(--surface-d) !important;
+                    }
+
                     li.ui-tabs-header {
                         background-color: transparent;
-    
+                        border-bottom-width: 1px;
+
                         a {
                             text-decoration: none;
                         }
+
+                        &.ui-state-hover {
+                            border-color: transparent;
+                            border-bottom-color: var(--primary-color);
+                            border-radius: 0;
+
+                            a {
+                                color: var(--text-color);
+                            }
+                        }
+
+                        &.ui-state-active {
+                            border-color: transparent;
+                            border-bottom-color: var(--primary-color);
+                            border-radius: 0;
+
+                            a {
+                                color: var(--primary-color);
+                            }
+                        }
                     }
                 }
-    
+
                 .ui-tabs-panels {
                     background: transparent;
-    
+
                     .ui-tabs-panel {
                         padding: 2rem 1rem;
                     }
@@ -140,7 +163,7 @@
         box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
         border-radius: 4px;
         margin-bottom: 2rem;
-        
+
         .card-header {
             display: flex;
             align-items: center;

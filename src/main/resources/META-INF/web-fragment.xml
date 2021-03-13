@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-fragment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"
-              id="showcase_template" version="3.0">
+<web-fragment
+    version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-fragment_4_0.xsd"
+    xmlns:web="http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+    id="showcase_template" >
 
     <name>showcase_template_fragment</name>
 
@@ -83,14 +85,14 @@
         <listener-class>${jsfListener}</listener-class>
     </listener>-->
 
-    <filter>
+    <!--    <filter>
         <filter-name>Character Encoding Filter</filter-name>
         <filter-class>org.primefaces.showcase.filter.CharacterEncodingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>Character Encoding Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
-    </filter-mapping>
+    </filter-mapping>-->
 
     <error-page>
         <exception-type>java.lang.Throwable</exception-type>
@@ -105,7 +107,7 @@
         <location>/error.xhtml</location>
     </error-page>
 
-    <servlet>
+    <!--    <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     </servlet>
@@ -125,7 +127,7 @@
     <servlet-mapping>
         <servlet-name>FileUpload Resume Servlet</servlet-name>
         <url-pattern>/file/resume/</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
     <mime-mapping>
         <extension>ttf</extension>

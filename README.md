@@ -111,14 +111,30 @@ public class MyAppMenu extends AppMenu {
     @PostConstruct
     public void init() {
         menuCategories = new ArrayList<>();
+        menuItems = new ArrayList<>();
 
         List<MenuItem> myPages = new ArrayList<>();
         myPages.add(new MenuItem("Home", "/index"));
-        myPages.add(new MenuItem("Products", "/index", "New"));
+        myPages.add(new MenuItem("Products", "/index", "X"));
         menuCategories.add(new MenuCategory("My Pages", myPages));
 
+        for (MenuCategory category : menuCategories) {
+            for (MenuItem menuItem : category.getMenuItems()) {
+                menuItem.setParentLabel(category.getLabel());
+                if (menuItem.getUrl() != null) {
+                    menuItems.add(menuItem);
+                }
+                if (menuItem.getMenuItems() != null) {
+                    for (MenuItem item : menuItem.getMenuItems()) {
+                        item.setParentLabel(menuItem.getLabel());
+                        if (item.getUrl() != null) {
+                            menuItems.add(item);
+                        }
+                    }
+                }
+            }
+        }
     }
-
 }
 ```
 #### 5. Accessing selected theme (optional)
